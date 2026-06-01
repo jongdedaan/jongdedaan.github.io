@@ -188,31 +188,63 @@
             font-weight: 300;
         }
 
-        .contact-links {
+        .contact-form {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
         }
 
-        .contact-link {
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.95rem;
-            color: var(--text);
-            text-decoration: none;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .contact-link:hover {
-            color: var(--accent);
-        }
-
-        .contact-label {
-            font-size: 0.78rem;
+        .form-group label {
+            font-size: 0.82rem;
+            font-weight: 500;
             color: var(--muted);
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            min-width: 60px;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 11px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: #fff;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .form-success {
+            display: none;
+            padding: 16px;
+            background: #f0faf4;
+            border: 1px solid #b7dfc9;
+            border-radius: 6px;
+            color: var(--accent);
+            font-size: 0.95rem;
         }
 
         /* FOOTER */
@@ -226,6 +258,10 @@
 
         /* MOBILE */
         @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
             nav {
                 padding: 0 20px;
             }
@@ -316,13 +352,33 @@
     <section id="contact">
         <div class="container">
             <h2>Contact</h2>
-            <p>Benieuwd wat coaching voor jou of jouw organisatie kan betekenen? Neem gerust contact op.</p>
-            <div class="contact-links">
-                <a href="mailto:daan@coachdaan.nl" class="contact-link">
-                    <span class="contact-label">E-mail</span>
-                    daan@coachdaan.nl
-                </a>
+            <p>Benieuwd wat coaching voor jou of jouw organisatie kan betekenen? Stuur een bericht en ik neem zo snel mogelijk contact op.</p>
+            <div class="form-success" id="form-success">
+                Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op.
             </div>
+            <form class="contact-form" action="https://formspree.io/f/JOUW_FORM_ID" method="POST" id="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="naam">Naam</label>
+                        <input type="text" id="naam" name="naam" placeholder="Jouw naam" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="jouw@email.nl" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telefoon">Telefoonnummer</label>
+                    <input type="tel" id="telefoon" name="telefoon" placeholder="+31 6 00000000">
+                </div>
+                <div class="form-group">
+                    <label for="bericht">Bericht</label>
+                    <textarea id="bericht" name="bericht" placeholder="Waar kan ik je mee helpen?" required></textarea>
+                </div>
+                <div>
+                    <button type="submit" class="btn">Verstuur bericht</button>
+                </div>
+            </form>
         </div>
     </section>
 
