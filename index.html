@@ -264,6 +264,39 @@
             color: var(--muted);
         }
 
+        /* HAMBURGER */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.25s;
+            transform-origin: center;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
         /* MOBILE */
         @media (max-width: 600px) {
             .form-row {
@@ -272,10 +305,32 @@
 
             nav {
                 padding: 0 20px;
+                flex-wrap: wrap;
+                height: auto;
+                min-height: 60px;
+            }
+
+            .hamburger {
+                display: flex;
             }
 
             .nav-links {
-                gap: 20px;
+                display: none;
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+                padding: 8px 0 16px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 10px 0;
+                font-size: 1rem;
+                border-top: 1px solid var(--border);
             }
 
             section {
@@ -296,7 +351,12 @@
 
     <nav>
         <a href="#home" class="nav-brand">Coach Daan</a>
-        <ul class="nav-links">
+        <button class="hamburger" id="hamburger" aria-label="Menu openen">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
             <li><a href="#over">Over Coach Daan</a></li>
             <li><a href="#voor-wie">Voor wie</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -411,6 +471,21 @@
     </section>
 
     <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('open');
+            navLinks.classList.toggle('open');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('open');
+                navLinks.classList.remove('open');
+            });
+        });
+
         const form = document.getElementById('contact-form');
         const success = document.getElementById('form-success');
 
