@@ -413,6 +413,23 @@
         const form = document.getElementById('contact-form');
         const success = document.getElementById('form-success');
 
+        function resetForm() {
+            form.reset();
+            form.style.display = '';
+            success.style.display = 'none';
+            const btn = form.querySelector('button[type="submit"]');
+            btn.disabled = false;
+            btn.textContent = 'Verstuur bericht';
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function() {
+                if (this.getAttribute('href') !== '#contact') {
+                    resetForm();
+                }
+            });
+        });
+
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = form.querySelector('button[type="submit"]');
