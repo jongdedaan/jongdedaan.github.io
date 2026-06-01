@@ -382,6 +382,34 @@
         </div>
     </section>
 
+    <script>
+        const form = document.getElementById('contact-form');
+        const success = document.getElementById('form-success');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Versturen...';
+
+            const data = new FormData(form);
+            const res = await fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (res.ok) {
+                form.style.display = 'none';
+                success.style.display = 'block';
+            } else {
+                btn.disabled = false;
+                btn.textContent = 'Verstuur bericht';
+                alert('Er ging iets mis. Probeer het opnieuw of mail naar daan@coachdaan.nl');
+            }
+        });
+    </script>
+
     <footer>
         <p>&copy; 2026 Coach Daan &mdash; coachdaan.nl</p>
     </footer>
